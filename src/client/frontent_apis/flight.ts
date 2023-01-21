@@ -13,6 +13,6 @@ export const getFlightsFromToWhen = async ({
   to: FlightConnectedCityListType
   when: Date
 }): Promise<FlightsListType> => {
-  const response: AxiosResponse<Array<[string, FlightType[]]>> = await axios.get(`http://fast-flight-production.up.railway.app/api/search?from=${from}&to=${to}&when=${when}`);
+  const response: AxiosResponse<Array<[string, FlightType[]]>> = await axios.get(`https://fast-flight-production.up.railway.app/api/search?from=${from}&to=${to}&when=${when}`);
   return new Map(response.data)
 }
