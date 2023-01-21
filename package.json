@@ -36,10 +36,12 @@
   "license": "MIT",
   "author": "Gil Amran",
   "dependencies": {
+    "amadeus": "^7.1.0",
     "axios": "^1.2.2",
     "body-parser": "^1.20.1",
     "ejs": "^3.1.8",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "style-loader": "^3.3.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",

@@ -1,22 +1,18 @@
 import bodyParser from 'body-parser';
 import { Router } from 'express';
-import { users, getUserById } from '../db';
+import { FlightConnectedCityListType } from '../../shared/cities_list';
+import { FlightsListType } from '../../shared/types';
+import { FlightController } from '../third_party_apis/flight_controller';
 
-export function apiRouter() {
+export function apiRouter(controller: FlightController) {
   const router = Router();
   router.use(bodyParser.json());
-
-  router.get('/api/users', (req, res) => {
-    res.json(users);
-  });
-
-  router.get('/api/user/:userId', (req, res) => {
-    const userId = req.params.userId;
-    res.json(getUserById(userId));
-  });
-
-  router.post('/api/set-user', (req, res) => {
-    res.send(`ok`);
+  router.get('/api/search', async (req, res) => {
+    const from: FlightConnectedCityListType = req.query.from as FlightConnectedCityListType
+    const to: FlightConnectedCityListType = req.query.to as FlightConnectedCityListType
+    const flights: FlightsListType = await controller.getFlightsFromToWhen({ from, to, when: new Date() })
+    console.log(`API: searching flights from${from} to${to} on${new Date()}`)
+    res.status(200).send(Array.from(flights.entries()))
   });
 
   return router;

@@ -1,0 +1,29 @@
+.flight-row{
+  outline: 3px solid black;
+}
+
+.flight-row:hover{
+  background-color: slategrey;
+}
+
+#flights-search-form{
+  padding: 20px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#flight-search-results{
+  text-align: center;
+}
+
+.minw{
+  min-width: 70px;
+}
+
+.wider{
+  min-width: 150px;
+}
+
+/* .spacer{
+  height: 20px
+} */

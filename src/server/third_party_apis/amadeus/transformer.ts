@@ -1,7 +1,66 @@
-import { FlightConnectedCityListType } from "./cities_list";
-import { CityCodeListType } from "./city_codes_list";
+import { FlightConnectedCityListType, } from "../../../shared/cities_list"
+import { CityCodeListType, } from "../../../shared/city_codes_list"
+import { FlightsListType, FlightType } from "../../../shared/types"
+import { AvailabilitiesRequest } from "./request_types"
+import { Availibilities } from "./response_types"
 
-export function cityNameToAirportCode(city: FlightConnectedCityListType): CityCodeListType {
+export function TransformAvailabilityForCient(response: Availibilities): FlightsListType {
+
+  let flightsListMap: FlightsListType = new Map<string, FlightType[]>()
+
+  response.data.forEach((availabilityData) => {
+
+    const flightsList: Array<FlightType> = []
+
+    availabilityData.segments.forEach((segmentData) => {
+      flightsList.push({
+        srno: Number(segmentData.id),
+        from: segmentData.departure.iataCode as FlightConnectedCityListType,
+        to: segmentData.arrival.iataCode as FlightConnectedCityListType,
+        datetime_of_departure: new Date(segmentData.departure.at),
+        datetime_of_arrival: new Date(segmentData.arrival.at),
+        flight_duration_in_hours: 444,
+        price: 999,
+        flight_duration_in_string: availabilityData.duration,
+        identifier: segmentData.aircraft.code,
+        currency: 'INR',
+        name: segmentData.carrierCode
+      })
+    })
+
+    flightsListMap.set(availabilityData.id, flightsList)
+  })
+
+  return flightsListMap
+}
+
+export function TransformAvailabilityForServer({ from, to, when }: { from: FlightConnectedCityListType, to: FlightConnectedCityListType, when: Date }): AvailabilitiesRequest {
+  const request: AvailabilitiesRequest = {
+    originDestinations: [
+      {
+        id: String(1),
+        originLocationCode: cityNameToAirportCode(from),
+        destinationLocationCode: cityNameToAirportCode(to),
+        "departureDateTime": {
+          "date": "2023-02-02"
+        }
+      }
+    ],
+    travelers: [
+      {
+        id: String(1),
+        travelerType: 'ADULT'
+      }
+    ],
+    sources: [
+      'GDS'
+    ]
+  }
+
+  return request
+}
+
+function cityNameToAirportCode(city: FlightConnectedCityListType): CityCodeListType {
 
   switch (city) {
     case 'Agartala':
@@ -517,11 +576,4 @@ export function cityNameToAirportCode(city: FlightConnectedCityListType): CityCo
       return 'ZER'
       break;
   }
-}
-
-export function DateObjectTODDMMYYHHSS(date: Date) {
-
-  return `${("0" + date.getDate()).slice(-2)}-${("0" + (date.getMonth() + 1)).slice(-2)}-${date.getFullYear().toString().slice(-2)} ${("0" + date.getHours()).slice(-2)}:${("0" + date.getMinutes()).slice(-2)}`;
-
-
 }

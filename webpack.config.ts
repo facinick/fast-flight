@@ -75,6 +75,10 @@ const config: Configuration = {
         test: /.jpe?g$|.gif$|.png$|.svg$|.woff$|.woff2$|.ttf$|.eot$/,
         use: 'url-loader?limit=10000',
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   target: 'web',
