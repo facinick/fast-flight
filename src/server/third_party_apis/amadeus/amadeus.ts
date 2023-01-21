@@ -16,8 +16,8 @@ export default class Amadeus implements FlightSearch {
     return new Promise((resolve, reject) => {
       try {
         Amadeus.amadeus = new amadeus({
-          clientId: 'hkb2kqygRev9FMM21CQF6mNokPDzpOLX',
-          clientSecret: 'qKFX1AGXBmBAOhcC'
+          clientId: process.env.AM_ID,
+          clientSecret: process.env.AM_SECRET,
         });
         console.log("initialized")
         resolve({})

@@ -6,6 +6,8 @@ import { staticsRouter } from './routes/statics-router';
 import * as config from './config';
 import { FlightController } from './third_party_apis/flight_controller';
 import Amadeus from './third_party_apis/amadeus/amadeus';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 console.log(`*******************************************`);
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`);
