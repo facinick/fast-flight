@@ -3,7 +3,7 @@ import amadeus from 'amadeus'
 import { FlightConnectedCityListType } from '../../../shared/cities_list';
 import { FlightsListType } from '../../../shared/types';
 import { FlightSearch } from '../interface';
-import { Availibilities } from './response_types';
+import { Availibilities } from './request_response_types/availabilities';
 import { TransformAvailabilityForCient, TransformAvailabilityForServer } from './transformer';
 
 export default class Amadeus implements FlightSearch {

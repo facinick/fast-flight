@@ -1,8 +1,7 @@
 import { FlightConnectedCityListType, } from "../../../shared/cities_list"
 import { CityCodeListType, } from "../../../shared/city_codes_list"
 import { FlightsListType, FlightType } from "../../../shared/types"
-import { AvailabilitiesRequest } from "./request_types"
-import { Availibilities } from "./response_types"
+import { Availibilities, AvailabilitiesRequest } from "./request_response_types/availabilities"
 
 export function TransformAvailabilityForCient(response: Availibilities): FlightsListType {
 
